@@ -1,0 +1,70 @@
+[build-system]
+requires = ["hatchling>=1.24.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "spygraph"
+dynamic = ["version"]
+description = "SpyGraph - a tool for revealing the IP address of a target, using Telegra.ph"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+
+authors = [
+  { name = "reekeer team" }
+]
+
+keywords = ["telegra.ph", "telegram", "ipgrabber", "grabber", "osint"]
+
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "Environment :: Console",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Operating System :: OS Independent",
+]
+
+dependencies = [
+  "telegraph>=2.2.0",
+  "requests>=2.31",
+  "rich>=13.0",
+  "fastapi>=0.135.1",
+  "uvicorn[standard]>=0.41.0"
+]
+
+[project.urls]
+Repository = "https://github.com/reekeer/spygraph"
+Issues = "https://github.com/reekeer/spygraph/issues"
+
+[project.scripts]
+spygraph = "spygraph.cli:main"
+
+
+[project.optional-dependencies]
+dev = [
+  "ruff"
+]
+
+[tool.hatch.version]
+path = "src/spygraph/__about__.py"
+
+[tool.hatch.build]
+exclude = [
+  "/.github",
+  "/docs",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/spygraph"]
+
+[tool.hatch.envs.default.scripts]
+lint = "ruff check ."
+
+[tool.ruff]
+line-length = 140
+target-version = "py39"
+
+[tool.ruff.lint]
+select = ["E", "F", "B", "I", "UP"]
